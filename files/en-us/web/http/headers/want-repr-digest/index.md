@@ -2,13 +2,10 @@
 title: Want-Repr-Digest
 slug: Web/HTTP/Headers/Want-Repr-Digest
 page-type: http-header
-status:
-  - experimental
-browser-compat: http.headers.Want-Repr-Digest
-spec-urls: https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-digest-headers-12
+spec-urls: https://datatracker.ietf.org/doc/html/rfc9530
 ---
 
-{{HTTPSidebar}}{{SeeCompatTable}}
+{{HTTPSidebar}}
 
 The **`Want-Repr-Digest`** request or response header states the wish for a {{HTTPHeader("Repr-Digest")}} header.
 
@@ -29,7 +26,8 @@ The **`Want-Repr-Digest`** request or response header states the wish for a {{HT
 
 `Want-Repr-Digest` describes an [RFC8941 dictionary](https://www.rfc-editor.org/rfc/rfc8941#section-3.2) with its keys being hashing algorithms and its values being the integers `0` (meaning "not acceptable") or `1` to `9` (conveying ascending, relative, weighted preference).
 
-> **Note:** In contrast to earlier drafts of the specifications, the weighting is _not_ declared via [q-values](/en-US/docs/Glossary/Quality_values).
+> [!NOTE]
+> In contrast to earlier drafts of the specifications, the weighting is _not_ declared via [q-values](/en-US/docs/Glossary/Quality_values).
 
 ## Directives
 
@@ -48,7 +46,8 @@ Want-Repr-Digest: sha-512=10, sha-256=1, md5=0
 
 ## Browser compatibility
 
-{{Compat}}
+This header has no specification-defined browser integration ("browser compatibility" does not apply).
+Developers can set and get HTTP headers using `fetch()` in order to provide application-specific implementation behavior.
 
 ## See also
 
