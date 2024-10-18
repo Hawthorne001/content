@@ -43,6 +43,8 @@ This article provides information about the changes in Firefox 115 that affect d
 - The [`URLSearchParams.has()`](/en-US/docs/Web/API/URLSearchParams/has) and [`URLSearchParams.delete()`](/en-US/docs/Web/API/URLSearchParams/delete) methods now support the optional `value` argument.
   This allows matching a search parameter on both the `name` and `value`, making it possible to work with query strings that contain multiple search parameters that have the same name.
   ([Firefox bug 1831587](https://bugzil.la/1831587)).
+- The [`RTCRtpReceiver.jitterBufferTarget`](/en-US/docs/Web/API/RTCRtpReceiver/jitterBufferTarget) attribute is now supported, allowing a WebRTC application to influence the tradeoff between playout delay and the risk of running out of audio or video frames due to network jitter.
+  ([Firefox bug 1592988](https://bugzil.la/1592988)).
 
 #### Removals
 
@@ -60,7 +62,7 @@ This article provides information about the changes in Firefox 115 that affect d
 #### Marionette
 
 - Both the commands `WebDriver:GetComputedLabel` and `WebDriver:GetComputedRole` now correctly wait for the requested accessibility object for an element to exist if it just got inserted into the DOM ([Firefox bug 1828816](https://bugzil.la/1828816)).
-- All instances of `window.setTimeout()` in our privileged code running in content processes now use a variant timer that is not affected by the throttling of the timers in case the given tab for automation is in the background.
+- All instances of {{domxref("Window.setTimeout()")}} in our privileged code running in content processes now use a variant timer that is not affected by the throttling of the timers in case the given tab for automation is in the background.
 
 ## Changes for add-on developers
 
