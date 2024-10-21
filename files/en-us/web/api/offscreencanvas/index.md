@@ -36,7 +36,7 @@ Rendering operations can also be run inside a [worker](/en-US/docs/Web/API/Web_W
 - {{domxref("OffscreenCanvas.convertToBlob()")}}
   - : Creates a {{domxref("Blob")}} object representing the image contained in the canvas.
 - {{domxref("OffscreenCanvas.transferToImageBitmap()")}}
-  - : Creates an {{domxref("ImageBitmap")}} object from the most recently rendered image of the `OffscreenCanvas`. See the {{domxref("OffscreenCanvas.transferToImageBitmap()", "API description")}} for important notes on managing this {{domxref("ImageBitmap")}}.
+  - : Creates an {{domxref("ImageBitmap")}} object from the most recently rendered image of the `OffscreenCanvas`. See its reference for important notes on managing this {{domxref("ImageBitmap")}}.
 
 ## Events
 
@@ -45,7 +45,7 @@ _Inherits events from its parent, {{domxref("EventTarget")}}._
 Listen to these events using {{DOMxRef("EventTarget.addEventListener", "addEventListener()")}} or by assigning an event listener to the `oneventname` property of this interface.
 
 - [`contextlost`](/en-US/docs/Web/API/OffscreenCanvas/contextlost_event)
-- : Fired if the browser detects that an [`OffscreenCanvasRenderingContext2D`](/en-US/docs/Web/API/OffscreenCanvasRenderingContext2D) context is lost.
+  - : Fired if the browser detects that an [`OffscreenCanvasRenderingContext2D`](/en-US/docs/Web/API/OffscreenCanvasRenderingContext2D) context is lost.
 - [`contextrestored`](/en-US/docs/Web/API/OffscreenCanvas/contextrestored_event)
   - : Fired if the browser successfully restores an [`OffscreenCanvasRenderingContext2D`](/en-US/docs/Web/API/OffscreenCanvasRenderingContext2D) context.
 
@@ -91,11 +91,11 @@ The `main.js` script (main thread) may look like this:
 const htmlCanvas = document.getElementById("canvas");
 const offscreen = htmlCanvas.transferControlToOffscreen();
 
-const worker = new Worker("offscreencanvas.js");
+const worker = new Worker("offscreen-canvas.js");
 worker.postMessage({ canvas: offscreen }, [offscreen]);
 ```
 
-While the `offscreencanvas.js` script (worker thread) can look like this:
+While the `offscreen-canvas.js` script (worker thread) can look like this:
 
 ```js
 onmessage = (evt) => {

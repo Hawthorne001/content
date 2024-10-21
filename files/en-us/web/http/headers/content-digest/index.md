@@ -2,13 +2,10 @@
 title: Content-Digest
 slug: Web/HTTP/Headers/Content-Digest
 page-type: http-header
-status:
-  - experimental
-browser-compat: http.headers.Content-Digest
-spec-urls: https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-digest-headers-12
+spec-urls: https://datatracker.ietf.org/doc/html/rfc9530
 ---
 
-{{HTTPSidebar}}{{SeeCompatTable}}
+{{HTTPSidebar}}
 
 The **`Content-Digest`** response or request header provides a {{Glossary("digest")}} of the actual message content, the stream of octets framed in an HTTP message.
 As such, `Content-Digest` is dependent on among other things {{HTTPHeader("Content-Encoding")}} and {{HTTPHeader("Content-Range")}}, but not dependent on, for example, HTTP/1.1's {{HTTPHeader("Transfer-Encoding")}}.
@@ -35,7 +32,8 @@ A client can request that a server emit a `Content-Digest` by issuing {{HTTPHead
 
 `Content-Digest` describes an [RFC8941 dictionary](https://www.rfc-editor.org/rfc/rfc8941#section-3.2) with its keys being names of digest algorithms and its values being the digest in bytes (or an integer digest for legacy digest algorithms).
 
-> **Note:** In contrast to earlier drafts of the specification, the standard-base64-encoded digest bytes are wrapped in colons (`:`, ASCII 0x3A) as part of the [dictionary syntax](https://www.rfc-editor.org/rfc/rfc8941#name-byte-sequences).
+> [!NOTE]
+> In contrast to earlier drafts of the specification, the standard-base64-encoded digest bytes are wrapped in colons (`:`, ASCII 0x3A) as part of the [dictionary syntax](https://www.rfc-editor.org/rfc/rfc8941#name-byte-sequences).
 
 ```http
 Content-Digest: <digest-algorithm>=:<standard-padded-base64-digest-value>:, ...
@@ -59,7 +57,8 @@ Content-Digest: md5=:+thA//8pGVGk2VYuJkFNvA==:, unixsum=26869
 
 ## Browser compatibility
 
-{{Compat}}
+This header has no specification-defined browser integration ("browser compatibility" does not apply).
+Developers can set and get HTTP headers using `fetch()` in order to provide application-specific implementation behavior.
 
 ## See also
 

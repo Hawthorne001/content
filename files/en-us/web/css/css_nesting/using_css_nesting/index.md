@@ -19,7 +19,7 @@ You can use CSS nesting to create child selectors of a parent, which in turn can
 There are certain instances where using the `&` nesting selector can be necessary or helpful:
 
 - When joining selectors together, such as using [compound selectors](#compound_selectors) or [pseudo-classes](/en-US/docs/Web/CSS/Pseudo-classes).
-- For backwards compatability.
+- For backwards compatibility.
 - As a visual indicator to aid with readability, when seeing the `&` nesting selector you know that CSS nesting is being used.
 
 ```css
@@ -52,7 +52,8 @@ parent child {
 
 In these examples, one without and one with the `&` nesting selector, the `<input>` inside the `<label>` is being styled differently to the `<input>` that is a sibling of a `<label>`. This demonstrates the impact of omitting the `&` nesting selector.
 
-> **Note:** This example demonstrates different outputs in browsers implementing the original specification versus the current nesting spec. The original, pre-August 2023 nesting spec that was implemented in Chrome or Safari, requires the `&` nesting combinator. If your browser supports the current spec, the output of both examples matches that of the second example.
+> [!NOTE]
+> This example demonstrates different outputs in browsers implementing the original specification versus the current nesting spec. The original, pre-August 2023 nesting spec that was implemented in Chrome or Safari, requires the `&` nesting combinator. If your browser supports the current spec, the output of both examples matches that of the second example.
 
 #### Without nesting selector
 
@@ -244,7 +245,7 @@ In this example the `&` nesting selector is used to create compound selectors to
 
 ##### CSS
 
-Styles for the `.notices` to create a column using {{cssxref('CSS_flexible_box_layout', 'flexbox layout')}}.
+Styles for the `.notices` to create a column using [flexbox layout](/en-US/docs/Web/CSS/CSS_flexible_box_layout).
 
 ```css
 .notices {
@@ -399,7 +400,8 @@ In CSS preprocessors such as [Sass](https://sass-lang.com/), it is possible to u
 }
 ```
 
-> **Warning:** This is not possible in CSS nesting: when a [combinator](/en-US/docs/Learn/CSS/Building_blocks/Selectors/Combinators) is not used, the nested selector is treated as a [type selector](/en-US/docs/Web/CSS/Type_selectors). Allowing concatenation would break this.
+> [!WARNING]
+> This is not possible in CSS nesting: when a [combinator](/en-US/docs/Learn/CSS/Building_blocks/Selectors/Combinators) is not used, the nested selector is treated as a [type selector](/en-US/docs/Web/CSS/Type_selectors). Allowing concatenation would break this.
 
 In [compound selectors](/en-US/docs/Web/CSS/CSS_selectors/Selector_structure#compound_selector), the type selector must come first. Writing `&Element` (a [type selector](/en-US/docs/Web/CSS/Type_selectors)) makes the CSS selector, and the entire selector block, invalid. As the type selector must come first, the compound selector must be written as `Element&`.
 

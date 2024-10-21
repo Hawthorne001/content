@@ -23,7 +23,8 @@ This element's attributes include the [global attributes](/en-US/docs/Web/HTML/G
 
   - : A Boolean attribute: if specified, the audio will automatically begin playback as soon as it can do so, without waiting for the entire audio file to finish downloading.
 
-    > **Note:** Sites that automatically play audio (or videos with an audio track) can be an unpleasant experience for users, so should be avoided when possible. If you must offer autoplay functionality, you should make it opt-in (requiring a user to specifically enable it). However, this can be useful when creating media elements whose source will be set at a later time, under user control. See our [autoplay guide](/en-US/docs/Web/Media/Autoplay_guide) for additional information about how to properly use autoplay.
+    > [!NOTE]
+    > Sites that automatically play audio (or videos with an audio track) can be an unpleasant experience for users, so should be avoided when possible. If you must offer autoplay functionality, you should make it opt-in (requiring a user to specifically enable it). However, this can be useful when creating media elements whose source will be set at a later time, under user control. See our [autoplay guide](/en-US/docs/Web/Media/Autoplay_guide) for additional information about how to properly use autoplay.
 
 - `controls`
 
@@ -35,7 +36,7 @@ This element's attributes include the [global attributes](/en-US/docs/Web/HTML/G
 
     The allowed values are `nodownload`, `nofullscreen` and `noremoteplayback`.
 
-- `crossorigin`
+- [`crossorigin`](/en-US/docs/Web/HTML/Attributes/crossorigin)
 
   - : This [enumerated](/en-US/docs/Glossary/Enumerated) attribute indicates whether to use CORS to fetch the related audio file. [CORS-enabled resources](/en-US/docs/Web/HTML/CORS_enabled_image) can be reused in the {{HTMLElement("canvas")}} element without being _tainted_. The allowed values are:
 
@@ -58,7 +59,7 @@ This element's attributes include the [global attributes](/en-US/docs/Web/HTML/G
   - : A Boolean attribute that indicates whether the audio will be initially silenced. Its default value is `false`.
 - `preload`
 
-  - : This [enumerated](/en-US/docs/Glossary/Enumerated) attribute is intended to provide a hint to the browser about what the author thinks will lead to the best user experience. It may have one of the following values:
+  - : This {{Glossary("enumerated")}} attribute is intended to provide a hint to the browser about what the author thinks will lead to the best user experience. It may have one of the following values:
 
     - `none`: Indicates that the audio should not be preloaded.
     - `metadata`: Indicates that only audio metadata (e.g. length) is fetched.
@@ -67,7 +68,7 @@ This element's attributes include the [global attributes](/en-US/docs/Web/HTML/G
 
     The default value is different for each browser. The spec advises it to be set to `metadata`.
 
-    > **Note:**
+    > [!NOTE]
     >
     > - The `autoplay` attribute has precedence over `preload`. If `autoplay` is specified, the browser would obviously need to start downloading the audio for playback.
     > - The browser is not forced by the specification to follow the value of this attribute; it is a mere hint.
@@ -287,7 +288,8 @@ You can detect when tracks are added to and removed from an `<audio>` element us
 - {{domxref("HTMLMediaElement.textTracks")}}
   - : Add an `addtrack` event listener to this {{domxref("TextTrackList")}} to be notified when new text tracks are added to the element.
 
-> **Note:** Even though it's an `<audio>` element, it still has video and text track lists, and can in fact be used to present video, although the user interface implications can be odd.
+> [!NOTE]
+> Even though it's an `<audio>` element, it still has video and text track lists, and can in fact be used to present video, although the user interface implications can be odd.
 
 For example, to detect when audio tracks are added to or removed from an `<audio>` element, you can use code like this:
 
@@ -306,6 +308,51 @@ elem.audioTrackList.onremovetrack = (event) => {
 This code watches for audio tracks to be added to and removed from the element, and calls a hypothetical function on a track editor to register and remove the track from the editor's list of available tracks.
 
 You can also use {{domxref("EventTarget.addEventListener", "addEventListener()")}} to listen for the {{domxref("AudioTrackList/addtrack_event", "addtrack")}} and {{domxref("AudioTrackList/removetrack_event", "removetrack")}} events.
+
+## Accessibility
+
+Audio with spoken dialog should provide both captions and transcripts that accurately describe its content. Captions, which are specified using [WebVTT](/en-US/docs/Web/API/WebVTT_API), allow people who are hearing impaired to understand an audio recording's content as the recording is being played, while transcripts allow people who need additional time to be able to review the recording's content at a pace and format that is comfortable for them.
+
+If automatic captioning services are used, it is important to review the generated content to ensure it accurately represents the source audio.
+
+The `<audio>` element doesn't directly support WebVTT. You will have to find a library or framework that provides the capability for you, or write the code to display captions yourself. One option is to play your audio using a {{HTMLElement("video")}} element, which does support WebVTT.
+
+In addition to spoken dialog, subtitles and transcripts should also identify music and sound effects that communicate important information. This includes emotion and tone. For example, in the WebVTT below, note the use of square brackets to provide tone and emotional insight to the viewer; this can help establish the mood otherwise provided using music, nonverbal sounds and crucial sound effects, and so forth.
+
+<!-- cSpell:ignore switchwatch Swisswatch -->
+
+```plain
+1
+00:00:00 --> 00:00:45
+[Energetic techno music]
+
+2
+00:00:46 --> 00:00:51
+Welcome to the Time Keeper's podcast! In this episode we're discussing which Swisswatch is a wrist switchwatch?
+
+16
+00:00:52 --> 00:01:02
+[Laughing] Sorry! I mean, which wristwatch is a Swiss wristwatch?
+```
+
+Also it's a good practice to provide some content (such as the direct download link) as a fallback for viewers who use a browser in which the `<audio>` element is not supported:
+
+```html
+<audio controls>
+  <source src="myAudio.mp3" type="audio/mpeg" />
+  <source src="myAudio.ogg" type="audio/ogg" />
+  <p>
+    Download <a href="myAudio.mp3">MP3</a> or
+    <a href="myAudio.ogg" download="myAudio.ogg">OGG</a> audio.
+  </p>
+</audio>
+```
+
+- [Web Video Text Tracks Format (WebVTT)](/en-US/docs/Web/API/WebVTT_API)
+- [WebAIM: Captions, Transcripts, and Audio Descriptions](https://webaim.org/techniques/captions/)
+- [MDN Understanding WCAG, Guideline 1.2 explanations](/en-US/docs/Web/Accessibility/Understanding_WCAG/Perceivable#guideline_1.2_—_providing_text_alternatives_for_time-based_media)
+- [Understanding Success Criterion 1.2.1 | W3C Understanding WCAG 2.0](https://www.w3.org/TR/UNDERSTANDING-WCAG20/media-equiv-av-only-alt.html)
+- [Understanding Success Criterion 1.2.2 | W3C Understanding WCAG 2.0](https://www.w3.org/TR/UNDERSTANDING-WCAG20/media-equiv-captions.html)
 
 ## Examples
 
@@ -345,49 +392,6 @@ This example includes multiple `<source>` elements. The browser tries to load th
 </audio>
 ```
 
-## Accessibility concerns
-
-Audio with spoken dialog should provide both captions and transcripts that accurately describe its content. Captions, which are specified using [WebVTT](/en-US/docs/Web/API/WebVTT_API), allow people who are hearing impaired to understand an audio recording's content as the recording is being played, while transcripts allow people who need additional time to be able to review the recording's content at a pace and format that is comfortable for them.
-
-If automatic captioning services are used, it is important to review the generated content to ensure it accurately represents the source audio.
-
-The `<audio>` element doesn't directly support WebVTT. You will have to find a library or framework that provides the capability for you, or write the code to display captions yourself. One option is to play your audio using a {{HTMLElement("video")}} element, which does support WebVTT.
-
-In addition to spoken dialog, subtitles and transcripts should also identify music and sound effects that communicate important information. This includes emotion and tone. For example, in the WebVTT below, note the use of square brackets to provide tone and emotional insight to the viewer; this can help establish the mood otherwise provided using music, nonverbal sounds and crucial sound effects, and so forth.
-
-```plain
-1
-00:00:00 --> 00:00:45
-[Energetic techno music]
-
-2
-00:00:46 --> 00:00:51
-Welcome to the Time Keeper's podcast! In this episode we're discussing which Swisswatch is a wrist switchwatch?
-
-16
-00:00:52 --> 00:01:02
-[Laughing] Sorry! I mean, which wristwatch is a Swiss wristwatch?
-```
-
-Also it's a good practice to provide some content (such as the direct download link) as a fallback for viewers who use a browser in which the `<audio>` element is not supported:
-
-```html
-<audio controls>
-  <source src="myAudio.mp3" type="audio/mpeg" />
-  <source src="myAudio.ogg" type="audio/ogg" />
-  <p>
-    Download <a href="myAudio.mp3">MP3</a> or
-    <a href="myAudio.ogg" download="myAudio.ogg">OGG</a> audio.
-  </p>
-</audio>
-```
-
-- [Web Video Text Tracks Format (WebVTT)](/en-US/docs/Web/API/WebVTT_API)
-- [WebAIM: Captions, Transcripts, and Audio Descriptions](https://webaim.org/techniques/captions/)
-- [MDN Understanding WCAG, Guideline 1.2 explanations](/en-US/docs/Web/Accessibility/Understanding_WCAG/Perceivable#guideline_1.2_—_providing_text_alternatives_for_time-based_media)
-- [Understanding Success Criterion 1.2.1 | W3C Understanding WCAG 2.0](https://www.w3.org/TR/UNDERSTANDING-WCAG20/media-equiv-av-only-alt.html)
-- [Understanding Success Criterion 1.2.2 | W3C Understanding WCAG 2.0](https://www.w3.org/TR/UNDERSTANDING-WCAG20/media-equiv-captions.html)
-
 ## Technical summary
 
 <table class="properties">
@@ -412,11 +416,11 @@ Also it's a good practice to provide some content (such as the direct download l
         If the element has a <a href="#src"><code>src</code></a>
         attribute: zero or more {{HTMLElement("track")}} elements
         followed by transparent content that contains no
-        {{HTMLElement("audio")}} or {{HTMLElement("video")}}
+        <code>&lt;audio&gt;</code> or {{HTMLElement("video")}}
         media elements.<br />Else: zero or more {{HTMLElement("source")}}
         elements followed by zero or more {{HTMLElement("track")}}
         elements followed by transparent content that contains no
-        {{HTMLElement("audio")}} or {{HTMLElement("video")}}
+        <code>&lt;audio&gt;</code> or {{HTMLElement("video")}}
         media elements.
       </td>
     </tr>
